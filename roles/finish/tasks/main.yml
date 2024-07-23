@@ -1,0 +1,32 @@
+---
+- name: Set ownership and permissions for docker-compose directories
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: '0755'
+    recurse: yes
+  loop:
+    - { path: /home/docker-compose/nginx, owner: '33', group: '33' }
+    - { path: /home/docker-compose/php, owner: '33', group: '33' }
+    - { path: /home/docker-compose/site, owner: '33', group: '33' }
+    - { path: /home/docker-compose/mysql, owner: '999', group: '999' }
+
+- name: Copy php-info file
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/docker-compose/site/{{ item | basename }}"
+  loop:
+    - "roles/finish/files/info.php"
+
+- name: Set permissions for /home/docker-compose/site
+  ansible.builtin.command:
+    cmd: chmod -R 755 /home/docker-compose/site
+
+- name: Start docker-compose services
+  ansible.builtin.command:
+    cmd: docker compose up -d
+  args:
+    chdir: /home/docker-compose
+

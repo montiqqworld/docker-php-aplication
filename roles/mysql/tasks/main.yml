@@ -1,0 +1,7 @@
+---
+- name: Copy MySQL dump script
+  ansible.builtin.copy:
+    src: "files/dump.sh"
+    dest: "/home/docker-compose/mysql/dump/dump.sh"
+    mode: "0755" 
+

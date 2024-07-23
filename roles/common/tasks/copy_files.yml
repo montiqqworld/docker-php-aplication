@@ -1,0 +1,10 @@
+---
+- name: Copy docker-compose files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/docker-compose/{{ item | basename }}"
+  with_items:
+    - roles/common/files/docker-compose.yml
+    - roles/common/files/.env.php
+    - roles/common/files/.env.mysql
+

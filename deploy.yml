@@ -1,0 +1,17 @@
+---
+- name: Deploy Web Application
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Include roles for deploying services
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - common
+        - mysql
+        - nginx
+        - php
+        - finish
+      tags: deploy_roles
+

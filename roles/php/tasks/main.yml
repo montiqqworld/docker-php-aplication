@@ -1,0 +1,14 @@
+---
+- name: Copy php Dockerfile
+  ansible.builtin.copy:
+    src: roles/php/files/Dockerfile.php
+    dest: "/home/docker-compose/php/Dockerfile.php"
+
+- name: Copy php configuration files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/docker-compose/php/config/{{ item | basename }}"
+  loop:
+    - "roles/php/files/php-fpm.conf"
+    - "roles/php/files/www.conf"
+    - "roles/php/files/php.ini"

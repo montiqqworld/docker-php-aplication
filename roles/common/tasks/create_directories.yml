@@ -1,0 +1,17 @@
+---
+- name: Create necessary directories for docker-compose
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - { path: /home/docker-compose/nginx/config }
+    - { path: /home/docker-compose/nginx/logs }
+    - { path: /home/docker-compose/site }
+    - { path: /home/docker-compose/mysql/data }
+    - { path: /home/docker-compose/mysql/dump }
+    - { path: /home/docker-compose/php/config }
+    - { path: /home/docker-compose/php/logs }
+

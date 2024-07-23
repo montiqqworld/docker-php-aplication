@@ -1,0 +1,13 @@
+---
+- name: Copy nginx Dockerfile
+  copy:
+    src: files/Dockerfile.nginx
+    dest: "/home/docker-compose/nginx/Dockerfile.nginx"
+
+- name: Copy nginx configuration template
+  template:
+    src: templates/nginx.conf.j2
+    dest: "/home/docker-compose/nginx/config/nginx.conf"
+
+
+

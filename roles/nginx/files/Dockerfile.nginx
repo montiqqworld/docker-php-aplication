@@ -1,0 +1,25 @@
+FROM nginx:1.25.2
+
+# Установка необходимых пакетов
+RUN apt-get update && apt-get install -y procps net-tools nano
+
+# Создание директорий и настройка прав доступа
+RUN mkdir -p /var/www/html && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html && \
+    mkdir -p /var/log/nginx && \
+    chown -R www-data:www-data /var/log/nginx && \
+    mkdir -p /var/cache/nginx/client_temp && \
+    chown -R www-data:www-data /var/cache/nginx && \
+    touch /var/run/nginx.pid && \
+    chown -R www-data:www-data /var/run/nginx.pid
+
+# Переключение на пользователя www-data
+USER www-data
+
+# Открытие порта 80
+EXPOSE 80
+
+# Запуск nginx с опцией daemon off
+CMD ["nginx", "-g", "daemon off;"]
+

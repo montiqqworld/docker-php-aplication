@@ -1,0 +1,11 @@
+---
+- name: Common tasks for setup
+  include_tasks: check_dependencies.yml
+
+- name: Create necessary directories
+  include_tasks: create_directories.yml
+  tags: create_directories
+
+- name: Copy docker-compose files
+  include_tasks: copy_files.yml
+
